@@ -126,34 +126,54 @@ const vacia = () => ({ t: "", a: "", u: "" });
 const trio = () => [vacia(), vacia(), vacia()];
 
 const ESTILOS = [
-  { nombre:"Kizomba", hue:330, energia:"suave", bpm:[80,100],
+  { nombre:"Kizomba", hue:330, energia:"suave", bpm:[70,90],
     desc:"Nacida en Angola, es lenta, sensual y muy marcada, con bajo y percusión suaves. Aparece en las pistas de zouk como momento de conexión y de baile cercano.",
-    baile:"Paso corto, abrazo cercano y movimiento de cadera.", canciones:trio() },
+    baile:"Paso corto, abrazo cercano y movimiento de cadera. Énfasis en la conexión con la tierra", canciones:[
+      { t:"Leva Tudo", a:"Calema", u:"Music/Leva_tudo.mp3" },
+      { t:"Magico", a:"Mika Mendes", u:"Music/Magico.mp3" },
+      { t:"Saia Branka", a:"Nelson Freitas", u:"Music/Saia_branka.mp3"},
+    ] },
+
+  
   { nombre:"Zouk antillano", hue:10, energia:"media", bpm:[100,130],
     desc:"El zouk original de Guadalupe y Martinica: bajo marcado, metales, teclados y voces criollas. Es la raíz caribeña que inspiró el zouk brasileño.",
     baile:"Compás firme y cadencioso, ideal para bailar con groove.", canciones:trio() },
+
+  
   { nombre:"Lambada", hue:32, energia:"alta", bpm:[110,130],
     desc:"El origen de la danza. Ritmo alegre y veraniego de los años 80, con percusión, guitarras y acordeón, antes de que evolucionara hacia el zouk.",
     baile:"Pasos rápidos, giros y mucha energía de pista.", canciones:trio() },
+
+  
   { nombre:"RnB", hue:285, energia:"suave", bpm:[75,95],
     desc:"Voces suaves de R&B con bases lentas y sensuales. Es el estilo más habitual en los socials de zouk brasileño actual.",
     baile:"Fluidez, movimientos de cabeza y cuerpo ondulante.", canciones:trio() },
+
+  
   { nombre:"Acústico", hue:130, energia:"suave", bpm:[70,90],
     desc:"Versiones con guitarra, piano o cuerdas, de sonido íntimo y cercano. Los temas conocidos se escuchan con otra cara.",
     baile:"Ligereza y escucha, perfecto para improvisar.", canciones:trio() },
+
+  
   { nombre:"Urbano", hue:60, energia:"alta", bpm:[90,105],
     desc:"Mezcla de zouk con hip-hop, reggaeton y trap. Más percusivo y actual, con letras en portugués, español e inglés.",
     baile:"Acentos marcados y dinámica con más punch.", canciones:trio() },
-  { nombre:"NeoZouk", hue:172, energia:"variable", bpm:[60,90],
+
+  
+  { nombre:"NeoZouk", hue:172, energia:"alta", bpm:[60,90],
     desc:"Sonido electrónico y atmosférico, con bajos profundos, sintetizadores y producciones modernas. Creado por Mafie Zouker y difundido principalmente a través de la ZNL (Zouk Night Love) Es la corriente más reciente y experimental.",
     baile:"Quiebros, cambios de dinámica y juegos de contratiempo.", canciones:[
       { t:"I see fire", a:"Mafie Zouker", u:"Music/I_see_fire.mp3" },
       { t:"Promises to Me", a:"Dj CaLaDo", u:"Music/Promises_to_me.mp3" },
       { t:"Bring Me Home", a:"Dj Cronus", u:"Music/Bring_me_home.mp3"},
     ] },
+
+  
   { nombre:"Remix", hue:250, energia:"media", bpm:[85,105],
     desc:"Temas de otros géneros reconvertidos al ritmo del zouk con remixes pensados para la pista. Es música conocida con una base cómoda para bailar.",
     baile:"Versátil: sirve para jugar con la música y para bailar con soltura.", canciones:trio() },
+
+  
   { nombre:"Pop", hue:195, energia:"media", bpm:[85,105],
     desc:"Canciones pop y de radio con un pulso que encaja con el zouk. Son melodías reconocibles que invitan a bailar a todo el mundo.",
     baile:"Ligero y divertido, con espacio para jugar con la letra.", canciones:trio() },
