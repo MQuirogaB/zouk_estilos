@@ -67,6 +67,7 @@ h1{
 .cancion{
   display:flex; align-items:center; gap:.75rem; padding:.55rem .7rem; border-radius:12px;
   border:1px dashed var(--borde); color:inherit; text-decoration:none;
+  width:100%; text-align:left; font:inherit; background:transparent;
 }
 .cancion .play{
   flex:none; width:32px; height:32px; border-radius:50%; display:grid; place-items:center;
@@ -76,9 +77,13 @@ h1{
 .cancion .t{display:block; line-height:1.25; font-weight:500}
 .cancion .a{display:block; font-size:.85rem; color:var(--arena-2)}
 .cancion.vacia .t{color:var(--arena-2); font-style:italic; font-weight:400}
-a.cancion{border-style:solid; transition:border-color .2s, background .2s}
-a.cancion:hover{border-color:var(--c); background:rgba(244,230,207,.07)}
-a.cancion .play{background:var(--c); color:var(--noche)}
+button.cancion{border-style:solid; cursor:pointer; transition:border-color .2s, background .2s}
+button.cancion:hover,button.cancion[aria-expanded="true"]{border-color:var(--c); background:rgba(244,230,207,.07)}
+button.cancion .play{background:var(--c); color:var(--noche)}
+.reproductor{margin:.5rem 0 .2rem}
+.reproductor audio{display:block; width:100%; height:42px}
+.reproductor iframe{display:block; width:100%; border:0; border-radius:12px}
+.reproductor .error{margin:.4rem 0 0; font-size:.85rem; color:#ff9aa8}
 
 footer{margin-top:3rem; color:var(--arena-2); font-size:.9rem; max-width:40rem}
 @media (prefers-reduced-motion:reduce){.wave g,.hero-wave animate{animation:none}}
@@ -111,7 +116,7 @@ footer{margin-top:3rem; color:var(--arena-2); font-size:.9rem; max-width:40rem}
   <main class="grid" id="grid"></main>
 
   <footer>
-    Los tempos son orientativos. Para añadir canciones, edita la lista <code>ESTILOS</code> al principio del script de <code>index.html</code>: rellena <code>t</code> (título), <code>a</code> (artista) y, si quieres, <code>u</code> (enlace).
+    Los tempos son orientativos. Para añadir canciones, edita la lista <code>ESTILOS</code> al principio del script de <code>index.html</code>: rellena <code>t</code> (título), <code>a</code> (artista) y <code>u</code> (enlace de Spotify, enlace de SoundCloud o ruta a un mp3, por ejemplo <code>Music/tema.mp3</code>). Al pulsar una canción se reproduce en la propia página.
   </footer>
 </div>
 
@@ -121,35 +126,37 @@ const vacia = () => ({ t: "", a: "", u: "" });
 const trio = () => [vacia(), vacia(), vacia()];
 
 const ESTILOS = [
-  { nombre:"Lambada clásica", hue:38, energia:"alta", bpm:[110,130],
-    desc:"El origen de todo. Ritmo alegre y veraniego de los años 80, con percusión, guitarras y acordeón. Es el sonido que dio nombre a la danza antes de que evolucionara hacia el zouk.",
-    baile:"Pasos rápidos, giros y mucha energía de pista.", canciones:trio() },
-  { nombre:"Zouk antillano", hue:18, energia:"media", bpm:[100,130],
+  { nombre:"Kizomba", hue:330, energia:"suave", bpm:[80,100],
+    desc:"Nacida en Angola, es lenta, sensual y muy marcada, con bajo y percusión suaves. Aparece en las pistas de zouk como momento de conexión y de baile cercano.",
+    baile:"Paso corto, abrazo cercano y movimiento de cadera.", canciones:trio() },
+  { nombre:"Zouk antillano", hue:10, energia:"media", bpm:[100,130],
     desc:"El zouk original de Guadalupe y Martinica: bajo marcado, metales, teclados y voces criollas. Es la raíz caribeña que inspiró el zouk brasileño.",
-    baile:"Compás firme y cadencioso, ideal para conexión con groove.", canciones:trio() },
-  { nombre:"Zouk love", hue:340, energia:"suave", bpm:[70,95],
-    desc:"Baladas románticas de tempo lento y melodías cantadas con emoción. Un clásico de las pistas de zouk para bailar pegados y con calma.",
-    baile:"Movimientos largos, pausas y mucha musicalidad.", canciones:trio() },
-  { nombre:"R&B", hue:285, energia:"suave", bpm:[75,95],
+    baile:"Compás firme y cadencioso, ideal para bailar con groove.", canciones:trio() },
+  { nombre:"Lambada", hue:32, energia:"alta", bpm:[110,130],
+    desc:"El origen de la danza. Ritmo alegre y veraniego de los años 80, con percusión, guitarras y acordeón, antes de que evolucionara hacia el zouk.",
+    baile:"Pasos rápidos, giros y mucha energía de pista.", canciones:trio() },
+  { nombre:"RnB", hue:285, energia:"suave", bpm:[75,95],
     desc:"Voces suaves de R&B con bases lentas y sensuales. Es el estilo más habitual en los socials de zouk brasileño actual.",
     baile:"Fluidez, movimientos de cabeza y cuerpo ondulante.", canciones:trio() },
-  { nombre:"Pop y remix", hue:200, energia:"media", bpm:[85,105],
-    desc:"Canciones pop y de radio reconvertidas al ritmo del zouk con remixes pensados para la pista. Son temas conocidos que invitan a bailar a todo el mundo.",
-    baile:"Versátil: sirve para jugar con la música y para bailar con soltura.", canciones:trio() },
-  { nombre:"NeoZouk", hue:172, energia:"media", bpm:[80,100],
-  desc:"Sonido electrónico y atmosférico, con bajos profundos, sintetizadores y producciones modernas. Es la corriente más reciente y experimental.",
-  baile:"Quiebros, cambios de dinámica y juegos de contratiempo.",
-  canciones:[
-    { t:"I see fire", a:"Mafie Zouker", u:"Music/I see fire.mp3" },
-    { t:"Promises to Me", a:"Dj CaLaDo", u:"Music/Promises to Me.mp3" },
-    { t:"Bring Me Home", a:"Dj Cronus", u:"Music/Bring_Me_Home.mp3" },
-  ] },
-  { nombre:"Urbano", hue:52, energia:"alta", bpm:[90,105],
-    desc:"Mezcla de zouk con hip-hop, reggaeton y trap. Más percusivo y actual, con letras en portugués, español e inglés.",
-    baile:"Acentos marcados y dinámica con más punch.", canciones:trio() },
   { nombre:"Acústico", hue:130, energia:"suave", bpm:[70,90],
     desc:"Versiones con guitarra, piano o cuerdas, de sonido íntimo y cercano. Los temas conocidos se escuchan con otra cara.",
     baile:"Ligereza y escucha, perfecto para improvisar.", canciones:trio() },
+  { nombre:"Urbano", hue:60, energia:"alta", bpm:[90,105],
+    desc:"Mezcla de zouk con hip-hop, reggaeton y trap. Más percusivo y actual, con letras en portugués, español e inglés.",
+    baile:"Acentos marcados y dinámica con más punch.", canciones:trio() },
+  { nombre:"NeoZouk", hue:172, energia:"media", bpm:[80,100],
+    desc:"Sonido electrónico y atmosférico, con bajos profundos, sintetizadores y producciones modernas. Es la corriente más reciente y experimental.",
+    baile:"Quiebros, cambios de dinámica y juegos de contratiempo.", canciones:[
+      { t:"I see fire", a:"Mafie Zouker", u:"Music/I see fire.mp3" },
+      { t:"Promises to Me", a:"Dj CaLaDo", u:"Music/Promises to Me.mp3" },
+      { t:"Bring Me Home", a:"Dj Cronus", u:"Music/Bring Me Home.mp3" },
+    ] },
+  { nombre:"Remix", hue:250, energia:"media", bpm:[85,105],
+    desc:"Temas de otros géneros reconvertidos al ritmo del zouk con remixes pensados para la pista. Es música conocida con una base cómoda para bailar.",
+    baile:"Versátil: sirve para jugar con la música y para bailar con soltura.", canciones:trio() },
+  { nombre:"Pop", hue:195, energia:"media", bpm:[85,105],
+    desc:"Canciones pop y de radio con un pulso que encaja con el zouk. Son melodías reconocibles que invitan a bailar a todo el mundo.",
+    baile:"Ligero y divertido, con espacio para jugar con la letra.", canciones:trio() },
 ];
 // ───────────────────────────────────────────────────────
 
@@ -170,16 +177,64 @@ function onda(e){
   return { d, dur };
 }
 
+const PLAY = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 0l10 6-10 6z" fill="currentColor"/></svg>';
+const STOP = '<svg viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" rx="1.5" fill="currentColor"/></svg>';
+
 function cancion(c){
-  const tag = c.u ? "a" : "div";
-  const el = document.createElement(tag);
+  const el = document.createElement(c.u ? "button" : "div");
   el.className = "cancion" + (c.t ? "" : " vacia");
-  if (c.u) { el.href = c.u; el.target = "_blank"; el.rel = "noopener"; }
-  el.innerHTML = `<span class="play"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 0l10 6-10 6z" fill="currentColor"/></svg></span>
-    <span><span class="t"></span><span class="a"></span></span>`;
+  if (c.u) { el.type = "button"; el.setAttribute("aria-expanded", "false"); }
+  el.innerHTML = `<span class="play">${PLAY}</span><span><span class="t"></span><span class="a"></span></span>`;
   el.querySelector(".t").textContent = c.t || "Canción por añadir";
   el.querySelector(".a").textContent = c.a || "Artista";
   return el;
+}
+
+// Crea el reproductor integrado según el tipo de enlace
+function reproductor(u){
+  const box = document.createElement("div");
+  box.className = "reproductor";
+  if (/open\.spotify\.com/.test(u)) {
+    const ruta = new URL(u).pathname.replace(/^\/intl-[a-z-]+/, "");
+    box.innerHTML = `<iframe src="https://open.spotify.com/embed${ruta}" height="80" loading="lazy"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Spotify"></iframe>`;
+  } else if (/soundcloud\.com/.test(u)) {
+    const q = "&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_reposts=false&show_teaser=false&visual=false";
+    box.innerHTML = `<iframe src="https://w.soundcloud.com/player/?url=${encodeURIComponent(u)}${q}" height="120"
+      allow="autoplay" title="SoundCloud"></iframe>`;
+  } else {
+    const src = /^https?:/.test(u) ? u : u.split("/").map(encodeURIComponent).join("/");
+    const a = document.createElement("audio");
+    a.controls = true; a.preload = "none"; a.src = src;
+    a.addEventListener("error", () => {
+      if (box.querySelector(".error")) return;
+      const m = document.createElement("p"); m.className = "error";
+      m.textContent = "No se encuentra el archivo " + u + ". Revisa la ruta, las mayúsculas y que esté subido al repo.";
+      box.append(m);
+    });
+    box.append(a);
+    setTimeout(() => a.play().catch(() => {}), 0);
+  }
+  return box;
+}
+
+let activo = null;
+function cerrar(li){
+  if (!li) return;
+  li.querySelector(".reproductor")?.remove();
+  const b = li.querySelector(".cancion");
+  b.setAttribute("aria-expanded", "false");
+  b.querySelector(".play").innerHTML = PLAY;
+}
+function alternar(li, u){
+  const abrir = li !== activo;
+  cerrar(activo); activo = null;
+  if (!abrir) return;
+  const b = li.querySelector(".cancion");
+  li.append(reproductor(u));
+  b.setAttribute("aria-expanded", "true");
+  b.querySelector(".play").innerHTML = STOP;
+  activo = li;
 }
 
 const grid = document.getElementById("grid");
@@ -198,7 +253,11 @@ ESTILOS.forEach(e => {
   card.querySelectorAll("p")[1].textContent = e.desc;
   card.querySelector(".baile").append(e.baile);
   const ul = card.querySelector(".canciones");
-  e.canciones.forEach(c => { const li = document.createElement("li"); li.append(cancion(c)); ul.append(li); });
+  e.canciones.forEach(c => {
+    const li = document.createElement("li"), el = cancion(c);
+    li.append(el); ul.append(li);
+    if (c.u) el.addEventListener("click", () => alternar(li, c.u));
+  });
   grid.append(card);
 });
 
