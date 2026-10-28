@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Música para bailar zouk brasileño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#0e1a2b; --ciruela:#2a1636; --arena:#f4e6cf; --arena-2:#c9bba3;
+  --panel:rgba(244,230,207,.06); --borde:rgba(244,230,207,.14);
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --texto:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--arena); font:400 1rem/1.6 var(--texto);
+  background:radial-gradient(1200px 700px at 85% -10%,var(--ciruela),transparent 60%),var(--noche);
+  background-attachment:fixed; min-height:100vh;
+}
+.wrap{max-width:1120px; margin:0 auto; padding:clamp(1.5rem,5vw,4rem) clamp(1rem,4vw,2rem) 4rem}
+header{max-width:46rem; margin-bottom:2.5rem}
+h1{
+  font:800 clamp(2.6rem,8vw,5.2rem)/.95 var(--display); letter-spacing:-.03em; margin:0 0 1.2rem;
+}
+.lead{font-size:1.15rem; color:var(--arena-2); margin:0; max-width:38rem}
+
+.hero-wave{display:block; width:100%; height:70px; margin:0 0 2rem; overflow:visible}
+.hero-wave path{fill:none; stroke-width:3; stroke-linecap:round}
+
+.filtros{display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; margin:0 0 2rem}
+.filtros span{color:var(--arena-2); margin-right:.3rem}
+.chip{
+  font:500 .95rem var(--texto); color:var(--arena); background:transparent; cursor:pointer;
+  border:1px solid var(--borde); border-radius:999px; padding:.45rem 1rem;
+  transition:background .2s,color .2s,border-color .2s;
+}
+.chip:hover{border-color:var(--arena-2)}
+.chip[aria-pressed="true"]{background:var(--arena); color:var(--noche); border-color:var(--arena)}
+:focus-visible{outline:3px solid #7fe0d6; outline-offset:3px}
+
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:1.4rem}
+.card{
+  --h:170;
+  --c:hsl(var(--h) 80% 68%);
+  background:var(--panel); border:1px solid var(--borde); border-radius:22px;
+  padding:1.4rem 1.4rem 1.2rem; display:flex; flex-direction:column; gap:.9rem;
+  transition:border-color .25s, background .25s;
+}
+.card:hover{border-color:var(--c); background:rgba(244,230,207,.09)}
+.card[hidden]{display:none}
+.wave{width:100%; height:56px; overflow:hidden; border-radius:10px}
+.wave svg{display:block; width:100%; height:100%}
+.wave path{fill:none; stroke:var(--c); stroke-width:3; stroke-linecap:round}
+.wave g{animation:flujo var(--dur,9s) linear infinite}
+@keyframes flujo{to{transform:translateX(-400px)}}
+.card h2{font:800 1.55rem/1.1 var(--display); letter-spacing:-.02em; margin:0}
+.meta{display:flex; flex-wrap:wrap; gap:.4rem .9rem; color:var(--arena-2); font-size:.9rem; margin:-.3rem 0 0}
+.meta b{color:var(--c); font-weight:600}
+.card p{margin:0}
+.baile{color:var(--arena-2); font-size:.95rem}
+.baile b{color:var(--arena); font-weight:600}
+.canciones{list-style:none; margin:.3rem 0 0; padding:0; display:grid; gap:.5rem}
+.cancion{
+  display:flex; align-items:center; gap:.75rem; padding:.55rem .7rem; border-radius:12px;
+  border:1px dashed var(--borde); color:inherit; text-decoration:none;
+}
+.cancion .play{
+  flex:none; width:32px; height:32px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(244,230,207,.08); color:var(--arena-2);
+}
+.cancion .play svg{width:12px; height:12px; margin-left:2px}
+.cancion .t{display:block; line-height:1.25; font-weight:500}
+.cancion .a{display:block; font-size:.85rem; color:var(--arena-2)}
+.cancion.vacia .t{color:var(--arena-2); font-style:italic; font-weight:400}
+a.cancion{border-style:solid; transition:border-color .2s, background .2s}
+a.cancion:hover{border-color:var(--c); background:rgba(244,230,207,.07)}
+a.cancion .play{background:var(--c); color:var(--noche)}
+
+footer{margin-top:3rem; color:var(--arena-2); font-size:.9rem; max-width:40rem}
+@media (prefers-reduced-motion:reduce){.wave g,.hero-wave animate{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Música para bailar zouk brasileño</h1>
+    <p class="lead">Un mapa de los estilos musicales que se bailan en zouk, con su carácter, su tempo y las canciones que mejor los representan.</p>
+  </header>
+
+  <svg class="hero-wave" viewBox="0 0 1000 70" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="g" x1="0" x2="1">
+        <stop offset="0" stop-color="#35c2c2"/><stop offset=".5" stop-color="#ffb454"/><stop offset="1" stop-color="#e8457c"/>
+      </linearGradient>
+    </defs>
+    <path stroke="url(#g)" d="M0 35 C 80 -5, 160 75, 250 35 S 420 -5, 500 35 S 670 75, 750 35 S 920 -5, 1000 35"/>
+  </svg>
+
+  <div class="filtros" role="group" aria-label="Filtrar por energía">
+    <span>Energía</span>
+    <button class="chip" aria-pressed="true" data-f="todas">Todas</button>
+    <button class="chip" aria-pressed="false" data-f="suave">Suave</button>
+    <button class="chip" aria-pressed="false" data-f="media">Media</button>
+    <button class="chip" aria-pressed="false" data-f="alta">Alta</button>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>
+    Los tempos son orientativos. Para añadir canciones, edita la lista <code>ESTILOS</code> al principio del script de <code>index.html</code>: rellena <code>t</code> (título), <code>a</code> (artista) y, si quieres, <code>u</code> (enlace).
+  </footer>
+</div>
+
+<script>
+// ───────── Datos: aquí se rellenan las canciones ─────────
+const vacia = () => ({ t: "", a: "", u: "" });
+const trio = () => [vacia(), vacia(), vacia()];
+
+const ESTILOS = [
+  { nombre:"Lambada clásica", hue:38, energia:"alta", bpm:[110,130],
+    desc:"El origen de todo. Ritmo alegre y veraniego de los años 80, con percusión, guitarras y acordeón. Es el sonido que dio nombre a la danza antes de que evolucionara hacia el zouk.",
+    baile:"Pasos rápidos, giros y mucha energía de pista.", canciones:trio() },
+  { nombre:"Zouk antillano", hue:18, energia:"media", bpm:[100,130],
+    desc:"El zouk original de Guadalupe y Martinica: bajo marcado, metales, teclados y voces criollas. Es la raíz caribeña que inspiró el zouk brasileño.",
+    baile:"Compás firme y cadencioso, ideal para conexión con groove.", canciones:trio() },
+  { nombre:"Zouk love", hue:340, energia:"suave", bpm:[70,95],
+    desc:"Baladas románticas de tempo lento y melodías cantadas con emoción. Un clásico de las pistas de zouk para bailar pegados y con calma.",
+    baile:"Movimientos largos, pausas y mucha musicalidad.", canciones:trio() },
+  { nombre:"Zouk R&B", hue:285, energia:"suave", bpm:[75,95],
+    desc:"Voces suaves de R&B con bases lentas y sensuales. Es el estilo más habitual en los socials de zouk brasileño actual.",
+    baile:"Fluidez, movimientos de cabeza y cuerpo ondulante.", canciones:trio() },
+  { nombre:"Zouk pop y remix", hue:200, energia:"media", bpm:[85,105],
+    desc:"Canciones pop y de radio reconvertidas al ritmo del zouk con remixes pensados para la pista. Son temas conocidos que invitan a bailar a todo el mundo.",
+    baile:"Versátil: sirve para jugar con la música y para bailar con soltura.", canciones:trio() },
+  { nombre:"Neo zouk", hue:172, energia:"media", bpm:[80,100],
+    desc:"Sonido electrónico y atmosférico, con bajos profundos, sintetizadores y producciones modernas. Es la corriente más reciente y experimental.",
+    baile:"Quiebros, cambios de dinámica y juegos de contratiempo.", canciones:trio() },
+  { nombre:"Zouk urbano", hue:52, energia:"alta", bpm:[90,105],
+    desc:"Mezcla de zouk con hip-hop, reggaeton y trap. Más percusivo y actual, con letras en portugués, español e inglés.",
+    baile:"Acentos marcados y dinámica con más punch.", canciones:trio() },
+  { nombre:"Zouk acústico", hue:130, energia:"suave", bpm:[70,90],
+    desc:"Versiones con guitarra, piano o cuerdas, de sonido íntimo y cercano. Los temas conocidos se escuchan con otra cara.",
+    baile:"Ligereza y escucha, perfecto para improvisar.", canciones:trio() },
+];
+// ───────────────────────────────────────────────────────
+
+const NS = "http://www.w3.org/2000/svg";
+const AMP = { suave:9, media:15, alta:22 };
+
+function onda(e){
+  const medio = (e.bpm[0] + e.bpm[1]) / 2;
+  const n = Math.max(2, Math.round(2 + (medio - 70) / 12));   // ciclos por 400 px
+  const dur = Math.round(800 / medio * 10) / 10 + "s";
+  const per = 400 / n, a = AMP[e.energia], y = 28;
+  let d = `M0 ${y}`;
+  for (let i = 0; i < n * 2; i++) {
+    const x0 = i * per;
+    d += ` C ${x0 + per*.25} ${y - a*1.33}, ${x0 + per*.25} ${y - a*1.33}, ${x0 + per*.5} ${y}`;
+    d += ` S ${x0 + per*.75} ${y + a*1.33}, ${x0 + per} ${y}`;
+  }
+  return { d, dur };
+}
+
+function cancion(c){
+  const tag = c.u ? "a" : "div";
+  const el = document.createElement(tag);
+  el.className = "cancion" + (c.t ? "" : " vacia");
+  if (c.u) { el.href = c.u; el.target = "_blank"; el.rel = "noopener"; }
+  el.innerHTML = `<span class="play"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 0l10 6-10 6z" fill="currentColor"/></svg></span>
+    <span><span class="t"></span><span class="a"></span></span>`;
+  el.querySelector(".t").textContent = c.t || "Canción por añadir";
+  el.querySelector(".a").textContent = c.a || "Artista";
+  return el;
+}
+
+const grid = document.getElementById("grid");
+ESTILOS.forEach(e => {
+  const { d, dur } = onda(e);
+  const card = document.createElement("article");
+  card.className = "card"; card.dataset.e = e.energia; card.style.setProperty("--h", e.hue);
+  card.innerHTML = `
+    <div class="wave" aria-hidden="true"><svg viewBox="0 0 400 56" preserveAspectRatio="none"><g style="--dur:${dur}"><path d="${d}"/></g></svg></div>
+    <h2></h2>
+    <p class="meta"><span><b>${e.bpm[0]}–${e.bpm[1]}</b> BPM</span><span>Energía ${e.energia}</span></p>
+    <p></p>
+    <p class="baile"><b>Cómo se baila:</b> </p>
+    <ul class="canciones"></ul>`;
+  card.querySelector("h2").textContent = e.nombre;
+  card.querySelectorAll("p")[1].textContent = e.desc;
+  card.querySelector(".baile").append(e.baile);
+  const ul = card.querySelector(".canciones");
+  e.canciones.forEach(c => { const li = document.createElement("li"); li.append(cancion(c)); ul.append(li); });
+  grid.append(card);
+});
+
+document.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b));
+  const f = b.dataset.f;
+  grid.querySelectorAll(".card").forEach(c => c.hidden = f !== "todas" && c.dataset.e !== f);
+}));
+</script>
+</body>
+</html>
