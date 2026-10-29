@@ -31,15 +31,6 @@ h1{
 .hero-wave{display:block; width:100%; height:70px; margin:0 0 2rem; overflow:visible}
 .hero-wave path{fill:none; stroke-width:3; stroke-linecap:round}
 
-.filtros{display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; margin:0 0 2rem}
-.filtros span{color:var(--arena-2); margin-right:.3rem}
-.chip{
-  font:500 .95rem var(--texto); color:var(--arena); background:transparent; cursor:pointer;
-  border:1px solid var(--borde); border-radius:999px; padding:.45rem 1rem;
-  transition:background .2s,color .2s,border-color .2s;
-}
-.chip:hover{border-color:var(--arena-2)}
-.chip[aria-pressed="true"]{background:var(--arena); color:var(--noche); border-color:var(--arena)}
 :focus-visible{outline:3px solid #7fe0d6; outline-offset:3px}
 
 .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:1.4rem}
@@ -54,7 +45,7 @@ h1{
 .card[hidden]{display:none}
 .wave{width:100%; height:56px; overflow:hidden; border-radius:10px}
 .wave svg{display:block; width:100%; height:100%}
-.wave path{fill:none; stroke:var(--c); stroke-width:3; stroke-linecap:round}
+.wave path{fill:none; stroke:var(--wc,var(--c)); stroke-width:3; stroke-linecap:round}
 .wave g{animation:flujo var(--dur,9s) linear infinite}
 @keyframes flujo{to{transform:translateX(-400px)}}
 .card h2{font:800 1.55rem/1.1 var(--display); letter-spacing:-.02em; margin:0}
@@ -105,14 +96,6 @@ footer{margin-top:3rem; color:var(--arena-2); font-size:.9rem; max-width:40rem}
     <path stroke="url(#g)" d="M0 35 C 80 -5, 160 75, 250 35 S 420 -5, 500 35 S 670 75, 750 35 S 920 -5, 1000 35"/>
   </svg>
 
-  <div class="filtros" role="group" aria-label="Filtrar por energía">
-    <span>Energía</span>
-    <button class="chip" aria-pressed="true" data-f="todas">Todas</button>
-    <button class="chip" aria-pressed="false" data-f="suave">Suave</button>
-    <button class="chip" aria-pressed="false" data-f="media">Media</button>
-    <button class="chip" aria-pressed="false" data-f="alta">Alta</button>
-  </div>
-
   <main class="grid" id="grid"></main>
 
   <footer>
@@ -134,7 +117,6 @@ const ESTILOS = [
       { t:"Saia Branka", a:"Nelson Freitas", u:"https://open.spotify.com/intl-es/track/2roI7c7QpGCMCJFD2EDrof?si=04a4bb77f73842a5"},
     ] },
 
-  
   { nombre:"Zouk antillano", hue:10, energia:"media", bpm:[100,130],
     desc:"El zouk original de Guadalupe y Martinica: bajo marcado, metales, teclados y voces criollas. Es la raíz caribeña que inspiró el zouk brasileño.",
     baile:"Compás firme y cadencioso, ideal para bailar con groove.", canciones:[
@@ -143,7 +125,6 @@ const ESTILOS = [
       { t:"Océan", a:"Tierry Cham", u:"https://open.spotify.com/intl-es/track/2ffoHFjdoCTVmy8M13R7UW?si=130f4aa83a284cec"},
     ] },
 
-  
   { nombre:"Lambada EDITAR", hue:32, energia:"alta", bpm:[110,130],
     desc:"El origen de la danza. Ritmo alegre y veraniego de los años 80, con percusión, guitarras y acordeón, antes de que evolucionara hacia el zouk.",
     baile:"Pasos rápidos, giros y mucha energía de pista.", canciones:[
@@ -152,7 +133,6 @@ const ESTILOS = [
       { t:"Saia Branka", a:"Nelson Freitas", u:"https://open.spotify.com/intl-es/track/2roI7c7QpGCMCJFD2EDrof?si=04a4bb77f73842a5"},
     ] },
 
-  
   { nombre:"RnB", hue:285, energia:"suave", bpm:[75,95],
     desc:"Voces suaves de R&B con bases lentas y sensuales. Mucha influencia del beat a contratiempo.",
     baile:"Fluidez, movimientos de cabeza y cuerpo ondulante.", canciones:[
@@ -161,7 +141,6 @@ const ESTILOS = [
       { t:"Spotless Mind", a:"Jhené Aiko", u:"https://open.spotify.com/intl-es/track/3F2Fp02Tqe5JNDjnLwQXt8?si=f5b95e97fa994581"},
     ] },
 
-  
   { nombre:"Acústico", hue:130, energia:"suave", bpm:[60,90],
     desc:"Versiones con guitarra, piano o cuerdas, de sonido íntimo y cercano. Los temas conocidos se escuchan con otra cara.",
     baile:"Ligereza y escucha, perfecto para improvisar.", canciones:[
@@ -170,13 +149,10 @@ const ESTILOS = [
       { t:"Breathe me", a:"Jonathan Roy", u:"https://open.spotify.com/intl-es/track/66qk0CxwJ6xo338AxG2CFH?si=c18970e4319741dd"},
     ] },
 
-
-  
   { nombre:"Urbano", hue:60, energia:"alta", bpm:[90,105],
     desc:"Mezcla de zouk con hip-hop, reggaeton y trap. Más percusivo y actual, con letras en portugués, español e inglés.",
     baile:"Acentos marcados y dinámica con más punch.", canciones:trio() },
 
-  
   { nombre:"NeoZouk", hue:172, energia:"alta", bpm:[60,90],
     desc:"Sonido electrónico y atmosférico, con bajos profundos, sintetizadores y producciones modernas. Creado por Mafie Zouker y difundido principalmente a través de la ZNL (Zouk Night Love) Es la corriente más reciente y experimental.",
     baile:"Quiebros, cambios de dinámica y juegos de contratiempo.", canciones:[
@@ -185,12 +161,10 @@ const ESTILOS = [
       { t:"Bring Me Home", a:"Dj Cronus", u:"Music/Bring_me_home.mp3"},
     ] },
 
-  
   { nombre:"Remix", hue:250, energia:"media", bpm:[85,105],
     desc:"Temas de otros géneros reconvertidos al ritmo del zouk con remixes pensados para la pista. Es música conocida con una base cómoda para bailar.",
     baile:"Versátil: sirve para jugar con la música y para bailar con soltura.", canciones:trio() },
 
-  
   { nombre:"Pop", hue:195, energia:"media", bpm:[85,105],
     desc:"Canciones pop y de radio con un pulso que encaja con el zouk. Son melodías reconocibles que invitan a bailar a todo el mundo.",
     baile:"Ligero y divertido, con espacio para jugar con la letra.", canciones:trio() },
@@ -198,20 +172,20 @@ const ESTILOS = [
 // ───────────────────────────────────────────────────────
 
 const NS = "http://www.w3.org/2000/svg";
-const AMP = { suave:9, media:15, alta:22 };
 
 function onda(e){
   const medio = (e.bpm[0] + e.bpm[1]) / 2;
   const n = Math.max(2, Math.round(2 + (medio - 70) / 12));   // ciclos por 400 px
   const dur = Math.round(800 / medio * 10) / 10 + "s";
-  const per = 400 / n, a = AMP[e.energia], y = 28;
+  const per = 400 / n, a = 5 + Math.random() * 19, y = 28;          // amplitud aleatoria
+  const col = `hsl(${Math.floor(Math.random() * 360)} 80% 68%)`;       // color aleatorio
   let d = `M0 ${y}`;
   for (let i = 0; i < n * 2; i++) {
     const x0 = i * per;
     d += ` C ${x0 + per*.25} ${y - a*1.33}, ${x0 + per*.25} ${y - a*1.33}, ${x0 + per*.5} ${y}`;
     d += ` S ${x0 + per*.75} ${y + a*1.33}, ${x0 + per} ${y}`;
   }
-  return { d, dur };
+  return { d, dur, col };
 }
 
 const PLAY = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 0l10 6-10 6z" fill="currentColor"/></svg>';
@@ -276,11 +250,11 @@ function alternar(li, u){
 
 const grid = document.getElementById("grid");
 ESTILOS.forEach(e => {
-  const { d, dur } = onda(e);
+  const { d, dur, col } = onda(e);
   const card = document.createElement("article");
   card.className = "card"; card.dataset.e = e.energia; card.style.setProperty("--h", e.hue);
   card.innerHTML = `
-    <div class="wave" aria-hidden="true"><svg viewBox="0 0 400 56" preserveAspectRatio="none"><g style="--dur:${dur}"><path d="${d}"/></g></svg></div>
+    <div class="wave" aria-hidden="true" style="--wc:${col}"><svg viewBox="0 0 400 56" preserveAspectRatio="none"><g style="--dur:${dur}"><path d="${d}"/></g></svg></div>
     <h2></h2>
     <p class="meta"><span><b>${e.bpm[0]}–${e.bpm[1]}</b> BPM</span><span>Energía ${e.energia}</span></p>
     <p></p>
@@ -297,12 +271,6 @@ ESTILOS.forEach(e => {
   });
   grid.append(card);
 });
-
-document.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => {
-  document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b));
-  const f = b.dataset.f;
-  grid.querySelectorAll(".card").forEach(c => c.hidden = f !== "todas" && c.dataset.e !== f);
-}));
 </script>
 </body>
 </html>
